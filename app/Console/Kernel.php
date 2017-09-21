@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+       \App\Console\Commands\LoadRSS::class,
     ];
 
     /**
@@ -24,6 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('rss:load --force')->everyFiveMinutes();
         // $schedule->command('inspire')
         //          ->hourly();
     }
