@@ -42,50 +42,50 @@ class LoadRSS extends Command
     public function handle()
     {
         //
-        Log::info('Showing user profile for user: ' .  time() );
- $file = new Filesystem();
- $sourceDir = '/home/forge/superfeedr.scurtin.org/code/data';
-$destDir = '/home/forge/horizon.scurtin.org/public/data';
+    Log::info('Showing user profile for user: ' .  time() );
+    $file = new Filesystem();
+    $sourceDir = '/home/forge/superfeedr.scurtin.org/code/data';
+    $destDir = '/home/forge/horizon.scurtin.org/public/data';
     $success = \File::copyDirectory($sourceDir, $destDir);
 
 
-$files = \File::allFiles($destDir);
+    $files = \File::allFiles($destDir);
 
     $cnt =0;
 
-  foreach ($files as $file)
-{
-    $data = file_get_contents("$file");
-    $json = json_decode($data,true);
-    $strStatus = $json['status']['code'];
-    $strhttp = $json['status']['http'];
-    $strnextFetch = $json['status']['nextFetch'];
-    $strtitle = $json['title'];
-    if (array_key_exists('permalinkUrl', $json))
+    foreach ($files as $file)
     {
-      //echo "image exists " . $json['permalinkUrl'] . "<br>";
+        $data = file_get_contents("$file");
+        $json = json_decode($data,true);
+        $strStatus = $json['status']['code'];
+        $strhttp = $json['status']['http'];
+        $strnextFetch = $json['status']['nextFetch'];
+        $strtitle = $json['title'];
+        if (array_key_exists('permalinkUrl', $json))
+        {
+        //echo "image exists " . $json['permalinkUrl'] . "<br>";
 
+        }
+
+            $strfeed = $json['status']['feed'];
+            if  (array_key_exists('items',$json))
+            {
+                if (($strStatus == '200') && (count($json['items']) > 0) )
+                {
+                    $cnt++;
+                    echo ($file) .  PHP_EOL ;
+                    echo ($strfeed) . PHP_EOL .PHP_EOL ;
+                    //echo ($strStatus) . '<br>';
+                    //echo ($strtitle) . '<br>';
+
+                    //echo count($json['items']) . ' - items <br>';
+                    //echo count($json['status']) . PHP_EOL ;
+
+                    //dd($json);
+                }         //echo count($json['standardLinks']);
+            }
     }
 
-    $strfeed = $json['status']['feed'];
-    if  (array_key_exists('items',$json))
-    {
-       if (($strStatus == '200') && (count($json['items']) > 0) )
-       {
-          $cnt++;
-          echo ($file) .  PHP_EOL ;
-          echo ($strfeed) . PHP_EOL .PHP_EOL ;
-          //echo ($strStatus) . '<br>';
-          //echo ($strtitle) . '<br>';
-
-          //echo count($json['items']) . ' - items <br>';
-          //echo count($json['status']) . PHP_EOL ;
-
-          //dd($json);
-        }         //echo count($json['standardLinks']);
-     }
-}
-
-echo ($cnt) . PHP_EOL ;
-    }
+    echo ($cnt) . PHP_EOL ;
+        }
 }
