@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('rss:load --force')->everyFiveMinutes();
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->job(new LoadData)->everyFiveMinutes();
     }
 
     /**
