@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Jobs;
+//use App\Jobs;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
        \App\Console\Commands\LoadRSS::class,
-       \App\Jobs\LoadData::class,
+       ////\\\\App\Jobs\LoadData::class,
     ];
 
     /**
