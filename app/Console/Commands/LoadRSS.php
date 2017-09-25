@@ -44,8 +44,13 @@ class LoadRSS extends Command
         //
     Log::info('Showing user profile for user: ' .  time() );
     $file = new Filesystem();
-    $sourceDir = '/home/forge/superfeedr.scurtin.org/code/data';
-    $destDir = '/home/forge/horizon.scurtin.org/public/data';
+    //$sourceDir = '/home/forge/superfeedr.scurtin.org/code/data';
+    //$destDir = '/home/forge/horizon.scurtin.org/public/data';
+
+    $sourceDir =  env('SOURCE_DATA', '/home/forge/superfeedr.scurtin.org/code/data');
+    $destDir   =  env('DEST_DATA','/home/forge/horizon.scurtin.org/public/data');
+
+
     $success = \File::copyDirectory($sourceDir, $destDir);
 
 
