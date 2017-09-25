@@ -29,6 +29,6 @@ class LoadData implements ShouldQueue
      */
     public function handle()
     {
-        //
+        Log::info('Showing user profile for user: ' .  time() );
     }
 }
